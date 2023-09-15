@@ -248,10 +248,10 @@
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^1.54.1":
-  version "1.54.1"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.54.1.tgz#e298b80c2963d9e622ea355db6c35df48e08cd89"
-  integrity sha512-smEXPu1GKMcAj9g2luT16+oXfg2jAwyc68t2Dm5wdtYl3p8PqQaZEiI8tQmboaQAjgF8pIGma6byz1T1vgmpbA==
+"@stripe/stripe-js@^2.1.5":
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-2.1.5.tgz#17595710e8f4f83665402e527b0997a0274650dd"
+  integrity sha512-vKztTjPYeCcX1Y1Ug2sE5+m/Gdm4CVAKGcQiRjLHQd2hDkjkVKClx3RbCStSi9rLRy50xHCiM+/kj4fbCHHA1Q==
 
 "@swc/helpers@0.5.1":
   version "0.5.1"
@@ -665,6 +665,11 @@ cookie@^0.5.0:
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.5.0.tgz#d1f5d71adec6558c58f389987c366aa47e994f8b"
   integrity sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==
 
+core-js@^3.6.4:
+  version "3.32.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.32.2.tgz#172fb5949ef468f93b4be7841af6ab1f21992db7"
+  integrity sha512-pxXSw1mYZPDGvTQqEc5vgIb83jGQKFGYWY76z4a7weZXUolw3G+OvpZqSRcfYOoOVUQJYEPsWeQK8pKEnUtWxQ==
+
 cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
@@ -796,6 +801,16 @@ electron-to-chromium@^1.4.431:
   version "1.4.461"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.461.tgz#6b14af66042732bf883ab63a4d82cac8f35eb252"
   integrity sha512-1JkvV2sgEGTDXjdsaQCeSwYYuhLRphRpc+g6EHTFELJXEiznLt3/0pZ9JuAOQ5p2rI3YxKTbivtvajirIfhrEQ==
+
+element-closest@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/element-closest/-/element-closest-3.0.2.tgz#3814a69a84f30e48e63eaf57341f4dbf4227d2aa"
+  integrity sha512-JxKQiJKX0Zr5Q2/bCaTx8P+UbfyMET1OQd61qu5xQFeWr1km3fGaxelSJtnfT27XQ5Uoztn2yIyeamAc/VX13g==
+
+element-remove@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/element-remove/-/element-remove-1.0.4.tgz#e587c53176bb196310bc99a75f45fe6eda016c21"
+  integrity sha512-01T/lcLW4gkT+5xVsHTheEigd5S3q2NBZsIf9Tqm2iXP8OjtWqGZW3axzgZqlAO8s4SqvQvG2kePAtHUCSsgrg==
 
 emoji-regex@^9.2.2:
   version "9.2.2"
@@ -2220,6 +2235,15 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
+payhere-embed-sdk@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/payhere-embed-sdk/-/payhere-embed-sdk-0.7.3.tgz#7e4f3540d09b07aae1fb8825aba1411844092cb9"
+  integrity sha512-OdCgWy2fjqTqGBPv43eWAdfBJjOrsSoLHauLrRdVjURa5JqTnpUmo6GHhcjP5YDkLCb5cZLH51jCAgxzzTPhCg==
+  dependencies:
+    core-js "^3.6.4"
+    element-closest "^3.0.2"
+    element-remove "^1.0.4"
+
 picocolors@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.0.0.tgz#cb5bdc74ff3f51892236eaf79d68bc44564ab81c"
@@ -2660,10 +2684,10 @@ strip-json-comments@^3.1.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
 
-stripe@^12.16.0:
-  version "12.16.0"
-  resolved "https://registry.yarnpkg.com/stripe/-/stripe-12.16.0.tgz#a52f3ab9480b10435dd1e9792820c65bfd406506"
-  integrity sha512-iwVkyZsS9KsWmEVK5qnbPeX/m94+Z3fXIRU7Q4iNBS2Zuj1spGIjLKMN3tejUs/ZZ2o7dCYFJvVdC2aZMYo8GA==
+stripe@^13.5.0:
+  version "13.5.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-13.5.0.tgz#e9d928d73abfa5afd0fe3aff6d60419f5ddeb99a"
+  integrity sha512-odGQbvkDVxR7ldxXth7kWaUv6M31bsPMYKCBR8oIIRDoiR4MfxWaLdz5h7QQDsGtelZugqx7AEVoC6twST+0VQ==
   dependencies:
     "@types/node" ">=8.1.0"
     qs "^6.11.0"

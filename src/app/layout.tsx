@@ -7,20 +7,16 @@ import Footer from "@/components/Footer";
 import AuthProvider from "@/components/AuthProvider";
 import QueryProvider from "@/components/QueryProvider";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Lama Restaurant",
+  title: "Flavor Haven",
   description: "Best food in town!",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -31,10 +27,11 @@ export default function RootLayout({
               <Navbar />
               {children}
               <Footer />
-              <ToastContainer position="bottom-right" theme="dark" autoClose={3000}/>
+              <ToastContainer position="bottom-right" theme="dark" autoClose={3000} />
             </div>
           </QueryProvider>
         </AuthProvider>
+        <div id="payhere-modal"></div>
       </body>
     </html>
   );

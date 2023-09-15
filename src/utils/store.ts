@@ -14,6 +14,7 @@ export const useCartStore = create(
       products: INITIAL_STATE.products,
       totalItems: INITIAL_STATE.totalItems,
       totalPrice: INITIAL_STATE.totalPrice,
+
       addToCart(item) {
         const products = get().products;
         const productInState = products.find((product) => product.id === item.id);
@@ -41,6 +42,7 @@ export const useCartStore = create(
           }));
         }
       },
+
       removeFromCart(item) {
         set((state) => ({
           products: state.products.filter((product) => product.id !== item.id),

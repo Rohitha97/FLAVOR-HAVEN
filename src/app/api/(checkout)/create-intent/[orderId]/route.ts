@@ -1,12 +1,7 @@
 import { prisma } from "@/utils/connect";
 import { NextRequest, NextResponse } from "next/server";
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { orderId: string } }
-) {
+export async function POST(request: NextRequest, { params }: { params: { orderId: string } }) {
   const { orderId } = params;
 
   const order = await prisma.order.findUnique({
@@ -16,8 +11,9 @@ export async function POST(
   });
 
   if (order) {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: order.price * 100,
+    // Remove Stripe logic here
+    /*const paymentIntent = await stripe.paymentIntents.create({
+      amount: order.price,
       currency: "usd",
       automatic_payment_methods: {
         enabled: true,
@@ -29,15 +25,13 @@ export async function POST(
         id: orderId,
       },
       data: { intent_id: paymentIntent.id },
-    });
+    });*/
 
-    return new NextResponse(
-      JSON.stringify({ clientSecret: paymentIntent.client_secret }),
-      { status: 200 }
-    );
+    // Mockup a clientSecret
+    const clientSecret = "mocked_client_secret";
+
+    return new NextResponse(JSON.stringify({ clientSecret }), { status: 200 });
   }
-  return new NextResponse(
-    JSON.stringify({ message:"Order not found!" }),
-    { status: 404 }
-  );
+
+  return new NextResponse(JSON.stringify({ message: "Order not found!" }), { status: 404 });
 }
