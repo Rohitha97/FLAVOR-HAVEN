@@ -14,32 +14,46 @@ const PayPage = ({ params }: { params: { id: string } }) => {
   const [cvv, setCvv] = useState("");
   const [cardHolderName, setCardHolderName] = useState("");
 
+  // State variables for in-shop payment
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const { id } = params;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Here you would make the API call to update the payment information in your database
-    // Example:
-    const response = await fetch("replace-with-your-api-endpoint", {
+    let response;
+    response = await fetch(`http://localhost:3000/api/create-intent/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        cardNumber,
-        expiryDate,
-        cvv,
-        cardHolderName,
+        status: "Being prepared!",
+        orderId: id,
       }),
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          window.location.href = data.successUrl;
+        } else {
+          setMessage(data.message);
+        }
+      });
 
-    const data = await response.json();
+    // if (!response.ok) {
+    //   console.error(`HTTP error! status: ${response.status}`);
+    // } else {
+    //   const data = await response.json();
 
-    if (data.success) {
-      setMessage("Payment details updated successfully!");
-    } else {
-      setMessage("An error occurred. Please, try again.");
-    }
+    //   if (data.success) {
+    //     setMessage(data.message);
+    //   } else {
+    //     setMessage(data.message);
+    //   }
+    // }
 
     setIsLoading(false);
   };
@@ -131,7 +145,14 @@ const PayPage = ({ params }: { params: { id: string } }) => {
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
               Name
             </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Name" />
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Name"
+            />
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
@@ -141,6 +162,8 @@ const PayPage = ({ params }: { params: { id: string } }) => {
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="phone"
               type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
               placeholder="Phone Number"
             />
           </div>
@@ -148,10 +171,17 @@ const PayPage = ({ params }: { params: { id: string } }) => {
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
               Email
             </label>
-            <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" placeholder="Email" />
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="email"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+            />
           </div>
           <div className="flex items-center justify-between">
-            <button className={"bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"} type="submit">
+            <button className={"bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"} type="submit" disabled={isLoading}>
               Place Order
             </button>
           </div>

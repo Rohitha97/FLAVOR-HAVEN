@@ -1,37 +1,42 @@
 import { prisma } from "@/utils/connect";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest, { params }: { params: { orderId: string } }) {
-  const { orderId } = params;
+export async function POST(request: NextRequest) {
+  try {
+    const { orderId, status } = await request.json();
 
-  const order = await prisma.order.findUnique({
-    where: {
-      id: orderId,
-    },
-  });
+    // Ensure orderId and status is provided
+    if (!orderId || !status) {
+      return new NextResponse(JSON.stringify({ message: "orderId or status is missing in the request body." }), { status: 400 });
+    }
 
-  if (order) {
-    // Remove Stripe logic here
-    /*const paymentIntent = await stripe.paymentIntents.create({
-      amount: order.price,
-      currency: "usd",
-      automatic_payment_methods: {
-        enabled: true,
-      },
-    });
-
-    await prisma.order.update({
+    // Assume orderId is going to be stored in your payment details
+    const order = await prisma.order.findUnique({
       where: {
         id: orderId,
       },
-      data: { intent_id: paymentIntent.id },
-    });*/
+    });
 
-    // Mockup a clientSecret
-    const clientSecret = "mocked_client_secret";
+    if (order) {
+      const intentId = Math.floor(Math.random() * 1000) + 1;
+      await prisma.order.update({
+        where: {
+          id: orderId,
+        },
+        data: { status: status, intent_id: intentId.toString() },
+      });
 
-    return new NextResponse(JSON.stringify({ clientSecret }), { status: 200 });
+      const successUrl = `http://localhost:3000/success?payment_intent=${intentId}`;
+      return new NextResponse(JSON.stringify({ success: true, clientSecret: intentId, successUrl }), { status: 200 });
+    }
+
+    return new NextResponse(JSON.stringify({ success: false, message: "Order not found!" }), { status: 404 });
+  } catch (error) {
+    console.error("Server Error:", error);
+    if (error instanceof Error) {
+      return new NextResponse(JSON.stringify({ success: false, message: "An error occurred on the server: " + error.message }), { status: 500 });
+    } else {
+      return new NextResponse(JSON.stringify({ success: false, message: "An error occurred on the server." }), { status: 500 });
+    }
   }
-
-  return new NextResponse(JSON.stringify({ message: "Order not found!" }), { status: 404 });
 }

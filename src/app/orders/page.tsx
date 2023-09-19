@@ -5,8 +5,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
+
+const orderStatuses = ["Being prepared", "1 hour", "30 mins", "15 mins", "10 mins", "5 mins", "Order is ready", "Take Out"];
 
 const OrdersPage = () => {
   const { data: session, status } = useSession();
@@ -26,7 +28,7 @@ const OrdersPage = () => {
 
   const mutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: string }) => {
-      return fetch(`http://localhost:3000/api/o rders/${id}`, {
+      return fetch(`http://localhost:3000/api/orders/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -42,8 +44,8 @@ const OrdersPage = () => {
   const handleUpdate = (e: React.FormEvent<HTMLFormElement>, id: string) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    const input = form.elements[0] as HTMLInputElement;
-    const status = input.value;
+    const select = form.elements[0] as HTMLSelectElement;
+    const status = select.value;
 
     mutation.mutate({ id, status });
     toast.success("The order status has been changed!");
@@ -65,7 +67,10 @@ const OrdersPage = () => {
         </thead>
         <tbody>
           {data.map((item: OrderType) => (
-            <tr className={`${item.status !== "delivered" && "bg-red-50"}`} key={item.id}>
+            <tr
+              className={`${item.status === "Take Out" ? "bg-green-50" : item.status === "Being prepared" ? "bg-red-100" : item.status === "Order is ready" ? "bg-yellow-50" : "bg-red-50"}`}
+              key={item.id}
+            >
               <td className="hidden md:block py-6 px-1">{item.id}</td>
               <td className="py-6 px-1">{item.createdAt.toString().slice(0, 10)}</td>
               <td className="py-6 px-1">{item.price}</td>
@@ -73,7 +78,13 @@ const OrdersPage = () => {
               {session?.user.isAdmin ? (
                 <td>
                   <form className="flex items-center justify-center gap-4" onSubmit={(e) => handleUpdate(e, item.id)}>
-                    <input placeholder={item.status} className="p-2 ring-1 ring-red-100 rounded-md" />
+                    <select defaultValue={item.status} className="py-2 px-6 w-2/3 ring-1 ring-red-100 rounded-md">
+                      {orderStatuses.map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
+                    </select>
                     <button className="bg-red-400 p-2 rounded-full">
                       <Image src="/edit.png" alt="" width={20} height={20} />
                     </button>
