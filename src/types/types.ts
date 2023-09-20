@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export type MenuType = {
   id: string;
   slug: string;
@@ -6,6 +8,15 @@ export type MenuType = {
   img?: string;
   color: string;
 }[];
+
+export type CategoryType = {
+  id: string;
+  slug: string;
+  title: string;
+  desc?: string;
+  img?: string;
+  color: string;
+};
 
 export type ProductType = {
   id: string;
@@ -35,6 +46,12 @@ export type CartItemType = {
   price: number;
   optionTitle?: string;
   quantity: number;
+};
+
+export type NortificationType = {
+  id: string;
+  title: string;
+  toDate?: string;
 };
 
 export type CartType = {
