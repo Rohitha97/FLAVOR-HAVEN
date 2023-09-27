@@ -48,16 +48,25 @@ export type CartItemType = {
   quantity: number;
 };
 
-export type NortificationType = {
+export type NotificationType = {
   id: string;
   title: string;
-  toDate?: string;
+  toDate: string;
+  status: boolean;
 };
 
 export type CartType = {
   products: CartItemType[];
   totalItems: number;
   totalPrice: number;
+};
+
+export type ContactType = {
+  id: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
 };
 
 export type ActionTypes = {

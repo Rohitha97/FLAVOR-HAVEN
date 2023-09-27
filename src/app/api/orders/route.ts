@@ -20,16 +20,10 @@ export const GET = async (req: NextRequest) => {
       return new NextResponse(JSON.stringify(orders), { status: 200 });
     } catch (err) {
       console.log(err);
-      return new NextResponse(
-        JSON.stringify({ message: "Something went wrong!" }),
-        { status: 500 }
-      );
+      return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }
   } else {
-    return new NextResponse(
-      JSON.stringify({ message: "You are not authenticated!" }),
-      { status: 401 }
-    );
+    return new NextResponse(JSON.stringify({ message: "You are not authenticated!" }), { status: 401 });
   }
 };
 
@@ -40,21 +34,19 @@ export const POST = async (req: NextRequest) => {
   if (session) {
     try {
       const body = await req.json();
+      console.log("Received request with body:", body);
+
       const order = await prisma.order.create({
         data: body,
       });
+      console.log("Created product:", order);
+
       return new NextResponse(JSON.stringify(order), { status: 201 });
     } catch (err) {
       console.log(err);
-      return new NextResponse(
-        JSON.stringify({ message: "Something went wrong!" }),
-        { status: 500 }
-      );
+      return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }
   } else {
-    return new NextResponse(
-      JSON.stringify({ message: "You are not authenticated!" }),
-      { status: 401 }
-    );
+    return new NextResponse(JSON.stringify({ message: "You are not authenticated!" }), { status: 401 });
   }
 };

@@ -1,17 +1,18 @@
-import { NortificationType } from "@/types/types";
+import { NotificationType } from "@/types/types";
 import React from "react";
 
 interface NotificationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (notification: NortificationType) => void;
+  onSubmit: (notification: NotificationType) => void;
 }
 
 const NotificationModal: React.FC<NotificationModalProps> = ({ isOpen, onClose, onSubmit }) => {
-  const [notification, setNotification] = React.useState<NortificationType>({
+  const [notification, setNotification] = React.useState<NotificationType>({
     id: "",
     title: "",
     toDate: "",
+    status: false,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

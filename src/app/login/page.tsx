@@ -13,7 +13,7 @@ const LoginPage = () => {
     return <p>Loading...</p>;
   }
   if (status === "authenticated") {
-    router.push("/")
+    router.push("/");
   }
 
   return (
@@ -28,20 +28,11 @@ const LoginPage = () => {
         <div className="p-10 flex flex-col gap-8 md:w-1/2">
           <h1 className="font-bold text-xl xl:text-3xl">Welcome</h1>
           <p>Log into your account or create a new one using social buttons</p>
-          <button
-            className="flex gap-4 p-4 ring-1 ring-orange-100 rounded-md"
-            onClick={() => signIn("google")}
-          >
-            <Image
-              src="/google.png"
-              alt=""
-              width={20}
-              height={20}
-              className="object-contain"
-            />
+          <button className="flex gap-4 p-4 ring-1 ring-orange-100 rounded-md" onClick={() => signIn("google")}>
+            <Image src="/google.png" alt="" width={20} height={20} className="object-contain" />
             <span>Sign in with Google</span>
           </button>
-          <button className="flex gap-4 p-4 ring-1 ring-blue-100 rounded-md">
+          {/* <button className="flex gap-4 p-4 ring-1 ring-blue-100 rounded-md">
             <Image
               src="/facebook.png"
               alt=""
@@ -50,7 +41,7 @@ const LoginPage = () => {
               className="object-contain"
             />
             <span>Sign in with Facebook</span>
-          </button>
+          </button> */}
           <p className="text-sm">
             Have a problem?
             <Link className="underline" href="/">

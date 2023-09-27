@@ -169,7 +169,7 @@ const AddPage = () => {
         <h1 className="text-4xl mb-2 text-gray-300 font-bold">Add New Product</h1>
         <div className="w-full flex flex-col mt-4 ">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="file">
-            <Image src={imageUrl || "/upload.png"} alt="" width={30} height={20} />
+            <Image src={"/upload.png"} alt="" width={30} height={20} />
             <span>Upload Image</span>
           </label>
           <input type="file" onChange={handleChangeImg} id="file" className="hidden" />
